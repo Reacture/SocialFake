@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Khala.EventSourcing;
 using SocialFake.Identity.Events;
 
@@ -21,6 +22,17 @@ namespace SocialFake.Identity.Domain
 
             RaiseEvent(new UserCreated { Username = username });
             RaiseEvent(new PasswordHashChanged { PasswordHash = passwordHash });
+        }
+
+        private User(Guid id, IEnumerable<IDomainEvent> pastEvents)
+            : base(id)
+        {
+            HandlePastEvents(pastEvents);
+        }
+
+        public static User Factory(Guid id, IEnumerable<IDomainEvent> pastEvents)
+        {
+            return new User(id, pastEvents);
         }
 
         private void Handle(UserCreated domainEvent)

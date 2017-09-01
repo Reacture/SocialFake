@@ -1,5 +1,6 @@
 ﻿using System;
 using Khala.Messaging;
+using Newtonsoft.Json;
 
 namespace SocialFake.Identity.Commands
 {
@@ -11,6 +12,7 @@ namespace SocialFake.Identity.Commands
 
         public string Password { get; set; }
 
+        [JsonIgnore]
         public string PartitionKey => UserId.ToString();
     }
 }
