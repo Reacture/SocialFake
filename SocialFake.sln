@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialFake.Identity.Contrac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialFake.Identity.Domain", "Identity\SocialFake.Identity.Domain\SocialFake.Identity.Domain.csproj", "{8D356420-507D-4595-9AA3-B5C65DA75A4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialFake.Identity.Domain.Host", "Identity\SocialFake.Identity.Domain.Host\SocialFake.Identity.Domain.Host.csproj", "{0624F9BA-E74A-43E5-9BC9-86D6BF9E78DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{8D356420-507D-4595-9AA3-B5C65DA75A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D356420-507D-4595-9AA3-B5C65DA75A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D356420-507D-4595-9AA3-B5C65DA75A4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0624F9BA-E74A-43E5-9BC9-86D6BF9E78DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0624F9BA-E74A-43E5-9BC9-86D6BF9E78DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0624F9BA-E74A-43E5-9BC9-86D6BF9E78DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0624F9BA-E74A-43E5-9BC9-86D6BF9E78DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3567F88A-D802-4B09-8FE1-B5D01F909AA3} = {035D5823-0023-4E1F-A095-B9F6A331F405}
 		{8D356420-507D-4595-9AA3-B5C65DA75A4B} = {035D5823-0023-4E1F-A095-B9F6A331F405}
+		{0624F9BA-E74A-43E5-9BC9-86D6BF9E78DB} = {035D5823-0023-4E1F-A095-B9F6A331F405}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4770B032-24E4-4F28-8100-8733DEF8CC66}
