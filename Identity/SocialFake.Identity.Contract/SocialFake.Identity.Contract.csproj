@@ -127,6 +127,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Identity\Commands\ChangeDisplayNames.cs" />
     <Compile Include="Identity\Commands\CreateUserWithPassword.cs" />
     <Compile Include="Identity\Events\PasswordHashChanged.cs" />
     <Compile Include="Identity\Events\UserCreated.cs" />
