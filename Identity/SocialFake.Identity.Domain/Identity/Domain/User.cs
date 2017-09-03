@@ -7,6 +7,8 @@ namespace SocialFake.Identity.Domain
 {
     public class User : EventSourced
     {
+        public const int MaximumDisplayNameLength = 100;
+
         public User(Guid id, string username, string passwordHash)
             : base(id)
         {
@@ -35,11 +37,61 @@ namespace SocialFake.Identity.Domain
             return new User(id, pastEvents);
         }
 
+        public void ChangeDisplayNames(string firstName, string middleName, string lastName)
+        {
+            if (firstName == null)
+            {
+                throw new ArgumentNullException(nameof(firstName));
+            }
+
+            if (firstName.Length > MaximumDisplayNameLength)
+            {
+                throw new ArgumentException(
+                    $"Value cannot be longer than {MaximumDisplayNameLength}.",
+                    nameof(firstName));
+            }
+
+            if (middleName == null)
+            {
+                throw new ArgumentNullException(nameof(middleName));
+            }
+
+            if (middleName.Length > MaximumDisplayNameLength)
+            {
+                throw new ArgumentException(
+                    $"Value cannot be longer than {MaximumDisplayNameLength}.",
+                    nameof(middleName));
+            }
+
+            if (lastName == null)
+            {
+                throw new ArgumentNullException(nameof(lastName));
+            }
+
+            if (lastName.Length > MaximumDisplayNameLength)
+            {
+                throw new ArgumentException(
+                    $"Value cannot be longer than {MaximumDisplayNameLength}.",
+                    nameof(lastName));
+            }
+
+            RaiseEvent(new DisplayNamesChanged
+            {
+                FirstName = firstName,
+                MiddleName = middleName,
+                LastName = lastName
+            });
+        }
+
         private void Handle(UserCreated domainEvent)
         {
         }
 
         private void Handle(PasswordHashChanged domainEvent)
+        {
+        }
+
+        private void Handle(DisplayNamesChanged domainEvent)
         {
         }
     }
