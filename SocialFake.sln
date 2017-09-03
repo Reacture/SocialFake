@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Facade", "Facade", "{F1A67E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialFake.Facade.ReadModel", "Facade\SocialFake.Facade.ReadModel\SocialFake.Facade.ReadModel.csproj", "{9A0062DA-FE05-4273-A5AF-B851D34C7396}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialFake.Facade.Host", "Facade\SocialFake.Facade.Host\SocialFake.Facade.Host.csproj", "{216988D9-ECC5-4DC7-8F91-0BA54786D2A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{9A0062DA-FE05-4273-A5AF-B851D34C7396}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A0062DA-FE05-4273-A5AF-B851D34C7396}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A0062DA-FE05-4273-A5AF-B851D34C7396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{216988D9-ECC5-4DC7-8F91-0BA54786D2A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{216988D9-ECC5-4DC7-8F91-0BA54786D2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{216988D9-ECC5-4DC7-8F91-0BA54786D2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{216988D9-ECC5-4DC7-8F91-0BA54786D2A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{8D356420-507D-4595-9AA3-B5C65DA75A4B} = {035D5823-0023-4E1F-A095-B9F6A331F405}
 		{0624F9BA-E74A-43E5-9BC9-86D6BF9E78DB} = {035D5823-0023-4E1F-A095-B9F6A331F405}
 		{9A0062DA-FE05-4273-A5AF-B851D34C7396} = {F1A67E3A-8ED9-4885-BDA2-061EA2863C04}
+		{216988D9-ECC5-4DC7-8F91-0BA54786D2A6} = {F1A67E3A-8ED9-4885-BDA2-061EA2863C04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4770B032-24E4-4F28-8100-8733DEF8CC66}
