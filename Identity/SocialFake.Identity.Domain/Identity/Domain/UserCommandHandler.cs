@@ -9,7 +9,8 @@ namespace SocialFake.Identity.Domain
 {
     public class UserCommandHandler :
         InterfaceAwareHandler,
-        IHandles<CreateUserWithPassword>
+        IHandles<CreateUserWithPassword>,
+        IHandles<ChangeDisplayNames>
     {
         private readonly IPasswordHasher _passwordHasher;
         private readonly IEventSourcedRepository<User> _repository;
@@ -32,7 +33,27 @@ namespace SocialFake.Identity.Domain
             CreateUserWithPassword command = envelope.Message;
             string passwordHash = _passwordHasher.HashPassword(command.Password);
             var user = new User(command.UserId, command.Username, passwordHash);
-            return _repository.Save(user);
+            return _repository.Save(user, envelope.CorrelationId, cancellationToken);
+        }
+
+        public async Task Handle(Envelope<ChangeDisplayNames> envelope, CancellationToken cancellationToken)
+        {
+            if (envelope == null)
+            {
+                throw new ArgumentNullException(nameof(envelope));
+            }
+
+            ChangeDisplayNames command = envelope.Message;
+
+            User user = await _repository.Find(command.UserId);
+            if (user == null)
+            {
+                throw new InvalidOperationException($"Could not find user with id '{command.UserId}'.");
+            }
+
+            user.ChangeDisplayNames(command.FirstName, command.MiddleName, command.LastName);
+
+            await _repository.Save(user, envelope.CorrelationId, cancellationToken);
         }
     }
 }

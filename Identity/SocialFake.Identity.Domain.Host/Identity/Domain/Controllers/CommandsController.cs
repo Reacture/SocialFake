@@ -23,5 +23,13 @@ namespace SocialFake.Identity.Domain.Controllers
             await _messageBus.Send(new Envelope(command));
             return StatusCode(HttpStatusCode.Accepted);
         }
+
+        [HttpPost]
+        [Route(nameof(ChangeDisplayNames))]
+        public async Task<IHttpActionResult> SendChangeDisplayNamesCommand(ChangeDisplayNames command)
+        {
+            await _messageBus.Send(new Envelope(command));
+            return StatusCode(HttpStatusCode.Accepted);
+        }
     }
 }
