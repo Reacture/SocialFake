@@ -9,6 +9,7 @@ using Microsoft.Owin;
 using Microsoft.ServiceBus.Messaging;
 using Owin;
 using SocialFake.Facade;
+using SocialFake.Facade.Controllers;
 using SocialFake.Facade.ReadModel;
 using Swashbuckle.Application;
 using Swashbuckle.Swagger;
@@ -50,6 +51,8 @@ namespace SocialFake.Facade
 
             var builder = new ContainerBuilder();
             builder.RegisterType<SocialFakeDbContext>();
+            builder.RegisterType<ReadModelFacade>();
+            builder.RegisterType<UsersController>();
             IContainer container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 

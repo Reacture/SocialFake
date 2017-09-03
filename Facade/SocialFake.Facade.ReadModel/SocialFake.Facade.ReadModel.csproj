@@ -139,9 +139,11 @@
       <DependentUpon>201709031425139_CreateUserTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Facade\ReadModel\Migrations\MigrationsConfiguration.cs" />
+    <Compile Include="Facade\ReadModel\ReadModelFacade.cs" />
     <Compile Include="Facade\ReadModel\ReadModelGenerator.cs" />
     <Compile Include="Facade\ReadModel\SocialFakeDbContext.cs" />
     <Compile Include="Facade\ReadModel\User.cs" />
+    <Compile Include="Facade\ReadModel\UserDtoAssembler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +154,10 @@
     <ProjectReference Include="..\..\Identity\SocialFake.Identity.Contract\SocialFake.Identity.Contract.csproj">
       <Project>{3567F88A-D802-4B09-8FE1-B5D01F909AA3}</Project>
       <Name>SocialFake.Identity.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SocialFake.Facade.Contract\SocialFake.Facade.Contract.csproj">
+      <Project>{55bae948-f5e7-44da-b4a7-6030fe02c283}</Project>
+      <Name>SocialFake.Facade.Contract</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

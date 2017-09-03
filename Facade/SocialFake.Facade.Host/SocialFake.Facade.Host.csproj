@@ -238,6 +238,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Facade\Startup.cs" />
+    <Compile Include="Facade\Controllers\UsersController.cs" />
     <Compile Include="HomeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -254,6 +255,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SocialFake.Facade.Contract\SocialFake.Facade.Contract.csproj">
+      <Project>{55BAE948-F5E7-44DA-B4A7-6030FE02C283}</Project>
+      <Name>SocialFake.Facade.Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SocialFake.Facade.ReadModel\SocialFake.Facade.ReadModel.csproj">
       <Project>{9A0062DA-FE05-4273-A5AF-B851D34C7396}</Project>
       <Name>SocialFake.Facade.ReadModel</Name>
