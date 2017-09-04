@@ -244,6 +244,7 @@
   <ItemGroup>
     <Compile Include="HomeController.cs" />
     <Compile Include="Identity\Domain\Controllers\CommandsController.cs" />
+    <Compile Include="Identity\Domain\Controllers\FunctionsController.cs" />
     <Compile Include="Identity\Domain\GrootPasswordHasher.cs" />
     <Compile Include="Identity\Domain\Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

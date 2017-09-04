@@ -134,6 +134,7 @@
     <Compile Include="Identity\Events\DisplayNamesChanged.cs" />
     <Compile Include="Identity\Events\PasswordHashChanged.cs" />
     <Compile Include="Identity\Events\UserCreated.cs" />
+    <Compile Include="Identity\Functions\VerifyPasswordArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

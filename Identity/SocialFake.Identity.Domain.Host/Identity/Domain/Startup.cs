@@ -50,7 +50,9 @@ namespace SocialFake.Identity.Domain
                 messageBus,
                 User.Factory);
 
-            IMessageHandler messageHandler = new UserCommandHandler(new GrootPasswordHasher(), repository);
+            IPasswordHasher passwordHasher = new GrootPasswordHasher();
+
+            IMessageHandler messageHandler = new UserCommandHandler(passwordHasher, repository);
 
             app.UseEventMessageProcessor(
                 eventHandlerHost,
@@ -60,7 +62,10 @@ namespace SocialFake.Identity.Domain
             var builder = new ContainerBuilder();
             builder.RegisterInstance(messageBus);
             builder.RegisterInstance(messageHandler);
+            builder.RegisterInstance(repository);
+            builder.RegisterInstance(passwordHasher);
             builder.RegisterType<CommandsController>();
+            builder.RegisterType<FunctionsController>();
             IContainer container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 

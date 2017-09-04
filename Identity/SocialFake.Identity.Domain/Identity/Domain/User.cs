@@ -33,6 +33,8 @@ namespace SocialFake.Identity.Domain
             HandlePastEvents(pastEvents);
         }
 
+        public string PasswordHash { get; private set; }
+
         public static User Factory(Guid id, IEnumerable<IDomainEvent> pastEvents)
         {
             return new User(id, pastEvents);
@@ -107,6 +109,7 @@ namespace SocialFake.Identity.Domain
 
         private void Handle(PasswordHashChanged domainEvent)
         {
+            PasswordHash = domainEvent.PasswordHash;
         }
 
         private void Handle(DisplayNamesChanged domainEvent)
