@@ -28,7 +28,7 @@ namespace SocialFake.Facade.ReadModel
             }
         }
 
-        public async Task<Correlation> FindCorrelation(Guid correlationId)
+        public async Task<bool> CorrelationExists(Guid correlationId)
         {
             using (SocialFakeDbContext db = _dbContextFactory.Invoke())
             {
@@ -36,7 +36,7 @@ namespace SocialFake.Facade.ReadModel
                                                 where c.Id == correlationId
                                                 select c;
 
-                return await query.SingleOrDefaultAsync();
+                return await query.AnyAsync();
             }
         }
     }

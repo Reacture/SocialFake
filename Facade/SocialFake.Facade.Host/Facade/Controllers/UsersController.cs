@@ -15,6 +15,11 @@ namespace SocialFake.Facade.Controllers
     [RoutePrefix("users")]
     public class UsersController : ApiController
     {
+        private static readonly RetryPolicy<bool> s_transientFalseRetryPolicy =
+            RetryPolicy<bool>.LinearTransientDefault(
+                maximumRetryCount: 5,
+                increment: TimeSpan.FromMilliseconds(100));
+
         private readonly IMessageBus _messageBus;
         private readonly IdentityService _identityService;
         private readonly ReadModelFacade _readModelFacade;
@@ -24,6 +29,11 @@ namespace SocialFake.Facade.Controllers
             _messageBus = messageBus ?? throw new ArgumentNullException(nameof(messageBus));
             _identityService = identityService ?? throw new ArgumentNullException(nameof(identityService));
             _readModelFacade = readModelFacade ?? throw new ArgumentNullException(nameof(readModelFacade));
+        }
+
+        private Task<bool> CorrelationExists(Guid correlationId)
+        {
+            return s_transientFalseRetryPolicy.Run(() => _readModelFacade.CorrelationExists(correlationId));
         }
 
         [HttpPost]
@@ -56,9 +66,12 @@ namespace SocialFake.Facade.Controllers
         public async Task<IHttpActionResult> Get(Guid id)
         {
             UserDto user = await _readModelFacade.FindUser(id);
-            return user == null
-                ? NotFound()
-                : (IHttpActionResult)Ok(user);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
         }
 
         [HttpPost]
@@ -74,25 +87,24 @@ namespace SocialFake.Facade.Controllers
                 return BadRequest();
             }
 
-            var envelope = new Envelope(new ChangeDisplayNames
+            var command = new ChangeDisplayNames
             {
                 UserId = id,
                 FirstName = form.FirstName,
                 MiddleName = form.MiddleName,
                 LastName = form.LastName
-            });
+            };
+
+            var envelope = new Envelope(command);
 
             await _messageBus.Send(envelope);
 
-            var retry = RetryPolicy<Correlation>.LinearTransientDefault(
-                maximumRetryCount: 5,
-                increment: TimeSpan.FromMilliseconds(100));
+            if (await CorrelationExists(envelope.MessageId))
+            {
+                return Ok(await _readModelFacade.FindUser(id));
+            }
 
-            Correlation correlation = await retry.Run(() => _readModelFacade.FindCorrelation(envelope.MessageId));
-
-            return correlation == null
-                ? StatusCode(HttpStatusCode.Accepted)
-                : (IHttpActionResult)Ok(await _readModelFacade.FindUser(id));
+            return StatusCode(HttpStatusCode.Accepted);
         }
     }
 }
