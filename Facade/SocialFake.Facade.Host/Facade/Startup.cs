@@ -11,6 +11,7 @@ using Owin;
 using SocialFake.Facade;
 using SocialFake.Facade.Controllers;
 using SocialFake.Facade.ReadModel;
+using SocialFake.Identity.Domain;
 using Swashbuckle.Application;
 using Swashbuckle.Swagger;
 
@@ -49,10 +50,14 @@ namespace SocialFake.Facade
                 eventSerializer,
                 messageHandler);
 
+            IdentityService identityService = new IdentityService(
+                new Uri(ConfigurationManager.AppSettings["IdentityHostAddress"]));
+
             var builder = new ContainerBuilder();
             builder.RegisterType<SocialFakeDbContext>();
             builder.RegisterType<ReadModelFacade>();
             builder.RegisterType<UsersController>();
+            builder.RegisterInstance(identityService);
             IContainer container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 

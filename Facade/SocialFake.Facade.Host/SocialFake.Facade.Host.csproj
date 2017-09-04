@@ -255,6 +255,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Identity\SocialFake.Identity.Contract\SocialFake.Identity.Contract.csproj">
+      <Project>{3567F88A-D802-4B09-8FE1-B5D01F909AA3}</Project>
+      <Name>SocialFake.Identity.Contract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SocialFake.Facade.Contract\SocialFake.Facade.Contract.csproj">
       <Project>{55BAE948-F5E7-44DA-B4A7-6030FE02C283}</Project>
       <Name>SocialFake.Facade.Contract</Name>
