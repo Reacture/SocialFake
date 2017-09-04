@@ -40,6 +40,7 @@ namespace SocialFake.Facade.ReadModel
                 };
 
                 db.Users.Add(user);
+                db.Correlations.Add(new Correlation{ Id = envelope.MessageId });
 
                 await db.SaveChangesAsync(cancellationToken);
             }
@@ -73,6 +74,8 @@ namespace SocialFake.Facade.ReadModel
                     MiddleName = domainEvent.MiddleName,
                     LastName = domainEvent.LastName
                 });
+
+                db.Correlations.Add(new Correlation { Id = envelope.MessageId });
 
                 await db.SaveChangesAsync(cancellationToken);
             }

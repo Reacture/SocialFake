@@ -136,10 +136,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facade\ReadModel\Correlation.cs" />
     <Compile Include="Facade\ReadModel\DisplayNames.cs" />
     <Compile Include="Facade\ReadModel\Migrations\201709040549133_CreateUsersTable.cs" />
     <Compile Include="Facade\ReadModel\Migrations\201709040549133_CreateUsersTable.Designer.cs">
       <DependentUpon>201709040549133_CreateUsersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facade\ReadModel\Migrations\201709040553113_CreateCorrelationsTable.cs" />
+    <Compile Include="Facade\ReadModel\Migrations\201709040553113_CreateCorrelationsTable.Designer.cs">
+      <DependentUpon>201709040553113_CreateCorrelationsTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Facade\ReadModel\Migrations\MigrationsConfiguration.cs" />
     <Compile Include="Facade\ReadModel\ReadModelFacade.cs" />
@@ -167,6 +172,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Facade\ReadModel\Migrations\201709040549133_CreateUsersTable.resx">
       <DependentUpon>201709040549133_CreateUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facade\ReadModel\Migrations\201709040553113_CreateCorrelationsTable.resx">
+      <DependentUpon>201709040553113_CreateCorrelationsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

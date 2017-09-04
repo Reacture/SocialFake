@@ -15,5 +15,7 @@ namespace SocialFake.Facade.ReadModel
         }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Correlation> Correlations { get; set; }
     }
 }
