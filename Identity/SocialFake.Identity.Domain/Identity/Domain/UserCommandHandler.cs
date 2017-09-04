@@ -10,7 +10,8 @@ namespace SocialFake.Identity.Domain
     public class UserCommandHandler :
         InterfaceAwareHandler,
         IHandles<CreateUserWithPassword>,
-        IHandles<ChangeDisplayNames>
+        IHandles<ChangeDisplayNames>,
+        IHandles<ChangeBio>
     {
         private readonly IPasswordHasher _passwordHasher;
         private readonly IEventSourcedRepository<User> _repository;
@@ -44,16 +45,33 @@ namespace SocialFake.Identity.Domain
             }
 
             ChangeDisplayNames command = envelope.Message;
+            User user = await GetUser(command.UserId);
+            user.ChangeDisplayNames(command.FirstName, command.MiddleName, command.LastName);
+            await _repository.Save(user, envelope.MessageId, cancellationToken);
+        }
 
-            User user = await _repository.Find(command.UserId);
-            if (user == null)
+        public async Task Handle(Envelope<ChangeBio> envelope, CancellationToken cancellationToken)
+        {
+            if (envelope == null)
             {
-                throw new InvalidOperationException($"Could not find user with id '{command.UserId}'.");
+                throw new ArgumentNullException(nameof(envelope));
             }
 
-            user.ChangeDisplayNames(command.FirstName, command.MiddleName, command.LastName);
-
+            ChangeBio command = envelope.Message;
+            User user = await GetUser(command.UserId);
+            user.ChangeBio(command.Bio);
             await _repository.Save(user, envelope.MessageId, cancellationToken);
+        }
+
+        private async Task<User> GetUser(Guid userId)
+        {
+            User user = await _repository.Find(userId);
+            if (user == null)
+            {
+                throw new InvalidOperationException($"Could not find user with id '{userId}'.");
+            }
+
+            return user;
         }
     }
 }

@@ -127,6 +127,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Identity\Commands\ChangeBio.cs" />
     <Compile Include="Identity\Commands\ChangeDisplayNames.cs" />
     <Compile Include="Identity\Commands\CreateUserWithPassword.cs" />
     <Compile Include="Identity\Events\BioChanged.cs" />
