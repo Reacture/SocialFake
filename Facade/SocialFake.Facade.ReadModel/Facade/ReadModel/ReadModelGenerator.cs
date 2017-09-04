@@ -12,7 +12,8 @@ namespace SocialFake.Facade.ReadModel
     public class ReadModelGenerator :
         InterfaceAwareHandler,
         IHandles<UserCreated>,
-        IHandles<DisplayNamesChanged>
+        IHandles<DisplayNamesChanged>,
+        IHandles<BioChanged>
     {
         private readonly Func<SocialFakeDbContext> _dbContextFactory;
 
@@ -36,7 +37,8 @@ namespace SocialFake.Facade.ReadModel
                 {
                     Id = domainEvent.SourceId,
                     Username = domainEvent.Username,
-                    DisplayNamesJson = JsonConvert.SerializeObject(new DisplayNames())
+                    DisplayNamesJson = JsonConvert.SerializeObject(new DisplayNames()),
+                    Bio = string.Empty
                 };
 
                 db.Users.Add(user);
@@ -61,16 +63,7 @@ namespace SocialFake.Facade.ReadModel
 
             using (SocialFakeDbContext db = _dbContextFactory.Invoke())
             {
-                IQueryable<User> query = from u in db.Users
-                                         where u.Id == domainEvent.SourceId
-                                         select u;
-
-                User user = await query.SingleOrDefaultAsync(cancellationToken);
-
-                if (user == null)
-                {
-                    throw new InvalidOperationException($"Could not find user entity with id '{domainEvent.SourceId}'.");
-                }
+                User user = await GetUser(domainEvent.SourceId, db, cancellationToken);
 
                 user.DisplayNamesJson = JsonConvert.SerializeObject(new DisplayNames
                 {
@@ -86,6 +79,44 @@ namespace SocialFake.Facade.ReadModel
 
                 await db.SaveChangesAsync(cancellationToken);
             }
+        }
+
+        public async Task Handle(Envelope<BioChanged> envelope, CancellationToken cancellationToken)
+        {
+            if (envelope == null)
+            {
+                throw new ArgumentNullException(nameof(envelope));
+            }
+
+            BioChanged domainEvent = envelope.Message;
+
+            using (SocialFakeDbContext db = _dbContextFactory.Invoke())
+            {
+                User user = await GetUser(domainEvent.SourceId, db, cancellationToken);
+
+                user.Bio = domainEvent.Bio;
+
+                if (envelope.CorrelationId.HasValue)
+                {
+                    db.Correlations.Add(new Correlation { Id = envelope.CorrelationId.Value });
+                }
+
+                await db.SaveChangesAsync(cancellationToken);
+            }
+        }
+
+        private static async Task<User> GetUser(Guid userId, SocialFakeDbContext db, CancellationToken cancellationToken)
+        {
+            IQueryable<User> query = from u in db.Users
+                                     where u.Id == userId
+                                     select u;
+            User user = await query.SingleOrDefaultAsync(cancellationToken);
+            if (user == null)
+            {
+                throw new InvalidOperationException($"Could not find user entity with id '{userId}'.");
+            }
+
+            return user;
         }
     }
 }

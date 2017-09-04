@@ -19,7 +19,8 @@ namespace SocialFake.Facade.ReadModel
                 Username = entity.Username,
                 FirstName = displayNames.FirstName,
                 MiddleName = displayNames.MiddleName,
-                LastName = displayNames.LastName
+                LastName = displayNames.LastName,
+                Bio = entity.Bio
             };
         }
     }

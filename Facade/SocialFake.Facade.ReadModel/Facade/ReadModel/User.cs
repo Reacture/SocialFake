@@ -17,5 +17,7 @@ namespace SocialFake.Facade.ReadModel
         public string Username { get; set; }
 
         public string DisplayNamesJson { get; set; }
+
+        public string Bio { get; set; }
     }
 }

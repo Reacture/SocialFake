@@ -146,6 +146,10 @@
     <Compile Include="Facade\ReadModel\Migrations\201709040553113_CreateCorrelationsTable.Designer.cs">
       <DependentUpon>201709040553113_CreateCorrelationsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Facade\ReadModel\Migrations\201709041251057_AddBioColumnToUsersTable.cs" />
+    <Compile Include="Facade\ReadModel\Migrations\201709041251057_AddBioColumnToUsersTable.Designer.cs">
+      <DependentUpon>201709041251057_AddBioColumnToUsersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Facade\ReadModel\Migrations\MigrationsConfiguration.cs" />
     <Compile Include="Facade\ReadModel\ReadModelFacade.cs" />
     <Compile Include="Facade\ReadModel\ReadModelGenerator.cs" />
@@ -175,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Facade\ReadModel\Migrations\201709040553113_CreateCorrelationsTable.resx">
       <DependentUpon>201709040553113_CreateCorrelationsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facade\ReadModel\Migrations\201709041251057_AddBioColumnToUsersTable.resx">
+      <DependentUpon>201709041251057_AddBioColumnToUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
