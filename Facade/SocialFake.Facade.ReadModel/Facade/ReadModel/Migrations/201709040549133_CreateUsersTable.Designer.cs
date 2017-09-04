@@ -7,13 +7,13 @@ namespace SocialFake.Facade.ReadModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class CreateUserTable : IMigrationMetadata
+    public sealed partial class CreateUsersTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateUserTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateUsersTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201709031425139_CreateUserTable"; }
+            get { return "201709040549133_CreateUsersTable"; }
         }
         
         string IMigrationMetadata.Source

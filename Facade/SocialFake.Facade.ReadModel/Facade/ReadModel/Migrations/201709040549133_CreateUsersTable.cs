@@ -2,7 +2,7 @@ namespace SocialFake.Facade.ReadModel.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    public partial class CreateUserTable : DbMigration
+    public partial class CreateUsersTable : DbMigration
     {
         public override void Up()
         {
@@ -11,7 +11,7 @@ namespace SocialFake.Facade.ReadModel.Migrations
                 c => new
                     {
                         Id = c.Guid(nullable: false),
-                        SequenceId = c.Long(nullable: false),
+                        SequenceId = c.Long(nullable: false, identity: true),
                         Username = c.String(maxLength: 100),
                         DisplayNamesJson = c.String(),
                     })

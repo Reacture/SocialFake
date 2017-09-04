@@ -137,9 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Facade\ReadModel\DisplayNames.cs" />
-    <Compile Include="Facade\ReadModel\Migrations\201709031425139_CreateUserTable.cs" />
-    <Compile Include="Facade\ReadModel\Migrations\201709031425139_CreateUserTable.Designer.cs">
-      <DependentUpon>201709031425139_CreateUserTable.cs</DependentUpon>
+    <Compile Include="Facade\ReadModel\Migrations\201709040549133_CreateUsersTable.cs" />
+    <Compile Include="Facade\ReadModel\Migrations\201709040549133_CreateUsersTable.Designer.cs">
+      <DependentUpon>201709040549133_CreateUsersTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Facade\ReadModel\Migrations\MigrationsConfiguration.cs" />
     <Compile Include="Facade\ReadModel\ReadModelFacade.cs" />
@@ -165,8 +165,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Facade\ReadModel\Migrations\201709031425139_CreateUserTable.resx">
-      <DependentUpon>201709031425139_CreateUserTable.cs</DependentUpon>
+    <EmbeddedResource Include="Facade\ReadModel\Migrations\201709040549133_CreateUsersTable.resx">
+      <DependentUpon>201709040549133_CreateUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
