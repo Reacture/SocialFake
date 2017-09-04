@@ -59,7 +59,7 @@ namespace SocialFake.Identity.Domain
 
             var builder = new ContainerBuilder();
             builder.RegisterInstance(messageBus);
-            builder.RegisterType<CommandsController>();
+            builder.RegisterType<AsyncCommandsController>();
             IContainer container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 

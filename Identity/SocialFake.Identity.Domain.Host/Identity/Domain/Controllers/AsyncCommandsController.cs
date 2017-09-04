@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Khala.Messaging;
@@ -6,14 +7,14 @@ using SocialFake.Identity.Commands;
 
 namespace SocialFake.Identity.Domain.Controllers
 {
-    [RoutePrefix("commands")]
-    public class CommandsController : ApiController
+    [RoutePrefix("async-commands")]
+    public class AsyncCommandsController : ApiController
     {
         private readonly IMessageBus _messageBus;
 
-        public CommandsController(IMessageBus messageBus)
+        public AsyncCommandsController(IMessageBus messageBus)
         {
-            _messageBus = messageBus ?? throw new System.ArgumentNullException(nameof(messageBus));
+            _messageBus = messageBus ?? throw new ArgumentNullException(nameof(messageBus));
         }
 
         [HttpPost]
