@@ -128,7 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Identity\Commands\ChangeDisplayNames.cs" />
-    <Compile Include="Identity\Commands\CommandMessageReference.cs" />
     <Compile Include="Identity\Commands\CreateUserWithPassword.cs" />
     <Compile Include="Identity\Events\DisplayNamesChanged.cs" />
     <Compile Include="Identity\Events\PasswordHashChanged.cs" />

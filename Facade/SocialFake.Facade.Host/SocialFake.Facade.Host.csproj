@@ -72,7 +72,7 @@
       <HintPath>..\..\packages\Khala.Messaging.Azure.Owin.0.10.0\lib\net45\Khala.Messaging.Azure.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Khala.TransientFaultHandling, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Khala.TransientFaultHandling.0.1.0\lib\netstandard1.1\Khala.TransientFaultHandling.dll</HintPath>
+      <HintPath>..\..\packages\Khala.TransientFaultHandling.0.1.2\lib\netstandard1.1\Khala.TransientFaultHandling.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>

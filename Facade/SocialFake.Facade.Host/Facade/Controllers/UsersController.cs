@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -64,6 +63,8 @@ namespace SocialFake.Facade.Controllers
 
         [HttpPost]
         [Route("{id}/display-names")]
+        [ResponseType(typeof(UserDto))]
+        [SwaggerResponse(HttpStatusCode.Accepted)]
         public async Task<IHttpActionResult> PostDisplayNames(Guid id, ChangeDisplayNamesForm form)
         {
             if (string.IsNullOrWhiteSpace(form.FirstName) ||
@@ -73,31 +74,21 @@ namespace SocialFake.Facade.Controllers
                 return BadRequest();
             }
 
-            var command = new ChangeDisplayNames
+            var envelope = new Envelope(new ChangeDisplayNames
             {
                 UserId = id,
                 FirstName = form.FirstName,
                 MiddleName = form.MiddleName,
                 LastName = form.LastName
-            };
-            var envelope = new Envelope(command);
+            });
 
             await _messageBus.Send(envelope);
 
-            const int MaximumRetryCount = 5;
+            var retry = RetryPolicy<Correlation>.LinearTransientDefault(
+                maximumRetryCount: 5,
+                increment: TimeSpan.FromMilliseconds(200));
 
-            var retryPolicy = new RetryPolicy<Correlation>(
-                MaximumRetryCount,
-                new TransientDefaultDetectionStrategy<Correlation>(),
-                new LinearRetryIntervalStrategy(
-                    TimeSpan.FromMilliseconds(50),
-                    TimeSpan.FromMilliseconds(200),
-                    TimeSpan.FromSeconds(1),
-                    immediateFirstRetry: true));
-
-            Correlation correlation = await retryPolicy.Run(
-                cancellationToken => _readModelFacade.FindCorrelation(envelope.MessageId),
-                CancellationToken.None);
+            Correlation correlation = await retry.Run(() => _readModelFacade.FindCorrelation(envelope.MessageId));
 
             return correlation == null
                 ? StatusCode(HttpStatusCode.Accepted)
