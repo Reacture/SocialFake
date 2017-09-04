@@ -80,9 +80,9 @@ namespace SocialFake.Facade.Controllers
         [SwaggerResponse(HttpStatusCode.Accepted)]
         public async Task<IHttpActionResult> PostDisplayNames(Guid id, ChangeDisplayNamesForm form)
         {
-            if (string.IsNullOrWhiteSpace(form.FirstName) ||
-                string.IsNullOrWhiteSpace(form.MiddleName) ||
-                string.IsNullOrWhiteSpace(form.LastName))
+            if (form.FirstName == null ||
+                form.MiddleName == null ||
+                form.LastName == null)
             {
                 return BadRequest();
             }
@@ -105,6 +105,27 @@ namespace SocialFake.Facade.Controllers
             }
 
             return StatusCode(HttpStatusCode.Accepted);
+        }
+
+        [HttpPost]
+        [Route("{id}/bio")]
+        [ResponseType(typeof(UserDto))]
+        public async Task<IHttpActionResult> PostBio(Guid id, ChangeBioForm form)
+        {
+            if (form.Bio == null)
+            {
+                return BadRequest();
+            }
+
+            await _messageBus.Send(new Envelope(new ChangeBio
+            {
+                UserId = id,
+                Bio = form.Bio
+            }));
+
+            UserDto user = await _readModelFacade.FindUser(id);
+            user.Bio = form.Bio;
+            return Ok(user);
         }
     }
 }
