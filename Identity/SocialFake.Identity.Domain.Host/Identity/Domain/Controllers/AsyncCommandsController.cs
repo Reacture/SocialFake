@@ -2,8 +2,10 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Khala.Messaging;
 using SocialFake.Identity.Commands;
+using Swashbuckle.Swagger.Annotations;
 
 namespace SocialFake.Identity.Domain.Controllers
 {
@@ -19,10 +21,16 @@ namespace SocialFake.Identity.Domain.Controllers
 
         [HttpPost]
         [Route(nameof(ChangeDisplayNames))]
+        [SwaggerResponse(HttpStatusCode.Accepted)]
+        [ResponseType(typeof(CommandMessageReference))]
         public async Task<IHttpActionResult> SendChangeDisplayNamesCommand(ChangeDisplayNames command)
         {
-            await _messageBus.Send(new Envelope(command));
-            return StatusCode(HttpStatusCode.Accepted);
+            var envelope = new Envelope(command);
+            await _messageBus.Send(envelope);
+            return Content(HttpStatusCode.Accepted, new CommandMessageReference
+            {
+                MessageId = envelope.MessageId
+            });
         }
     }
 }
