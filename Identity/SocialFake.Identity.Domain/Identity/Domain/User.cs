@@ -8,6 +8,7 @@ namespace SocialFake.Identity.Domain
     public class User : EventSourced
     {
         public const int MaximumDisplayNameLength = 100;
+        public const int MaximumBioLength = 1000;
 
         public User(Guid id, string username, string passwordHash)
             : base(id)
@@ -83,6 +84,23 @@ namespace SocialFake.Identity.Domain
             });
         }
 
+        public void ChangeBio(string bio)
+        {
+            if (bio == null)
+            {
+                throw new ArgumentNullException(nameof(bio));
+            }
+
+            if (bio.Length > MaximumBioLength)
+            {
+                throw new ArgumentException(
+                    $"Value cannot be longer than {MaximumBioLength}",
+                    nameof(bio));
+            }
+
+            RaiseEvent(new BioChanged { Bio = bio });
+        }
+
         private void Handle(UserCreated domainEvent)
         {
         }
@@ -92,6 +110,10 @@ namespace SocialFake.Identity.Domain
         }
 
         private void Handle(DisplayNamesChanged domainEvent)
+        {
+        }
+
+        private void Handle(BioChanged domainEvent)
         {
         }
     }
