@@ -18,14 +18,6 @@ namespace SocialFake.Identity.Domain.Controllers
         }
 
         [HttpPost]
-        [Route(nameof(CreateUserWithPassword))]
-        public async Task<IHttpActionResult> SendCreateUserWithPasswordCommand(CreateUserWithPassword command)
-        {
-            await _messageBus.Send(new Envelope(command));
-            return StatusCode(HttpStatusCode.Accepted);
-        }
-
-        [HttpPost]
         [Route(nameof(ChangeDisplayNames))]
         public async Task<IHttpActionResult> SendChangeDisplayNamesCommand(ChangeDisplayNames command)
         {
