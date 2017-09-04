@@ -77,7 +77,6 @@ namespace SocialFake.Facade.Controllers
         [HttpPost]
         [Route("{id}/display-names")]
         [ResponseType(typeof(UserDto))]
-        [SwaggerResponse(HttpStatusCode.Accepted)]
         public async Task<IHttpActionResult> PostDisplayNames(Guid id, ChangeDisplayNamesForm form)
         {
             if (form.FirstName == null ||
@@ -87,15 +86,33 @@ namespace SocialFake.Facade.Controllers
                 return BadRequest();
             }
 
-            var command = new ChangeDisplayNames
+            await _messageBus.Send(new Envelope(new ChangeDisplayNames
             {
                 UserId = id,
                 FirstName = form.FirstName,
                 MiddleName = form.MiddleName,
                 LastName = form.LastName
-            };
+            }));
 
-            var envelope = new Envelope(command);
+            UserDto user = await _readModelFacade.FindUser(id);
+            user.FirstName = form.FirstName;
+            user.MiddleName = form.MiddleName;
+            user.LastName = form.LastName;
+            return Ok(user);
+        }
+
+        [HttpPost]
+        [Route("{id}/bio")]
+        [ResponseType(typeof(UserDto))]
+        [SwaggerResponse(HttpStatusCode.Accepted)]
+        public async Task<IHttpActionResult> PostBio(Guid id, ChangeBioForm form)
+        {
+            if (form.Bio == null)
+            {
+                return BadRequest();
+            }
+
+            var envelope = new Envelope(new ChangeBio { UserId = id, Bio = form.Bio });
 
             await _messageBus.Send(envelope);
 
@@ -105,27 +122,6 @@ namespace SocialFake.Facade.Controllers
             }
 
             return StatusCode(HttpStatusCode.Accepted);
-        }
-
-        [HttpPost]
-        [Route("{id}/bio")]
-        [ResponseType(typeof(UserDto))]
-        public async Task<IHttpActionResult> PostBio(Guid id, ChangeBioForm form)
-        {
-            if (form.Bio == null)
-            {
-                return BadRequest();
-            }
-
-            await _messageBus.Send(new Envelope(new ChangeBio
-            {
-                UserId = id,
-                Bio = form.Bio
-            }));
-
-            UserDto user = await _readModelFacade.FindUser(id);
-            user.Bio = form.Bio;
-            return Ok(user);
         }
     }
 }
