@@ -27,5 +27,17 @@ namespace SocialFake.Facade.ReadModel
                 return entity?.AssembleDto();
             }
         }
+
+        public async Task<Correlation> FindCorrelation(Guid correlationId)
+        {
+            using (SocialFakeDbContext db = _dbContextFactory.Invoke())
+            {
+                IQueryable<Correlation> query = from c in db.Correlations
+                                                where c.Id == correlationId
+                                                select c;
+
+                return await query.SingleOrDefaultAsync();
+            }
+        }
     }
 }

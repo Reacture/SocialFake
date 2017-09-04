@@ -36,6 +36,8 @@ namespace SocialFake.Facade
                 ConfigurationManager.ConnectionStrings["MessagingNamespace"].ConnectionString,
                 ConfigurationManager.AppSettings["MessageStream"]);
 
+            IMessageBus messageBus = new EventHubMessageBus(eventHubClient, eventSerializer);
+
             var eventHandlerHost = new EventProcessorHost(
                 InstanceName,
                 ConfigurationManager.AppSettings["MessageStream"],
@@ -54,6 +56,7 @@ namespace SocialFake.Facade
                 new Uri(ConfigurationManager.AppSettings["IdentityHostAddress"]));
 
             var builder = new ContainerBuilder();
+            builder.RegisterInstance(messageBus);
             builder.RegisterType<SocialFakeDbContext>();
             builder.RegisterType<ReadModelFacade>();
             builder.RegisterType<UsersController>();
