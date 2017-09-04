@@ -33,7 +33,7 @@ namespace SocialFake.Identity.Domain
             CreateUserWithPassword command = envelope.Message;
             string passwordHash = _passwordHasher.HashPassword(command.Password);
             var user = new User(command.UserId, command.Username, passwordHash);
-            return _repository.Save(user, envelope.CorrelationId, cancellationToken);
+            return _repository.Save(user, envelope.MessageId, cancellationToken);
         }
 
         public async Task Handle(Envelope<ChangeDisplayNames> envelope, CancellationToken cancellationToken)
@@ -53,7 +53,7 @@ namespace SocialFake.Identity.Domain
 
             user.ChangeDisplayNames(command.FirstName, command.MiddleName, command.LastName);
 
-            await _repository.Save(user, envelope.CorrelationId, cancellationToken);
+            await _repository.Save(user, envelope.MessageId, cancellationToken);
         }
     }
 }

@@ -40,7 +40,11 @@ namespace SocialFake.Facade.ReadModel
                 };
 
                 db.Users.Add(user);
-                db.Correlations.Add(new Correlation{ Id = envelope.MessageId });
+
+                if (envelope.CorrelationId.HasValue)
+                {
+                    db.Correlations.Add(new Correlation { Id = envelope.CorrelationId.Value });
+                }
 
                 await db.SaveChangesAsync(cancellationToken);
             }
@@ -75,7 +79,10 @@ namespace SocialFake.Facade.ReadModel
                     LastName = domainEvent.LastName
                 });
 
-                db.Correlations.Add(new Correlation { Id = envelope.MessageId });
+                if (envelope.CorrelationId.HasValue)
+                {
+                    db.Correlations.Add(new Correlation { Id = envelope.CorrelationId.Value });
+                }
 
                 await db.SaveChangesAsync(cancellationToken);
             }

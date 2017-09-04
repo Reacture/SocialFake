@@ -86,7 +86,7 @@ namespace SocialFake.Facade.Controllers
 
             var retry = RetryPolicy<Correlation>.LinearTransientDefault(
                 maximumRetryCount: 5,
-                increment: TimeSpan.FromMilliseconds(200));
+                increment: TimeSpan.FromMilliseconds(100));
 
             Correlation correlation = await retry.Run(() => _readModelFacade.FindCorrelation(envelope.MessageId));
 
