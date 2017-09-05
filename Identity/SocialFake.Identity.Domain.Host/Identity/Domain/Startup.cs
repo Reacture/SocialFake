@@ -74,6 +74,8 @@ namespace SocialFake.Identity.Domain
 
             app.UseAutofacWebApi(config);
             app.UseWebApi(config);
+
+            app.EnqueuePendingEvents(repository);
         }
 
         private void ConfigureSwagger(SwaggerDocsConfig config)

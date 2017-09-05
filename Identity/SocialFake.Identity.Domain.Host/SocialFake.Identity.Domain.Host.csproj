@@ -66,6 +66,9 @@
     <Reference Include="Khala.EventSourcing.Core, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Khala.EventSourcing.Core.0.10.0\lib\netstandard1.1\Khala.EventSourcing.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Khala.EventSourcing.Owin, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Khala.EventSourcing.Owin.0.10.0\lib\net45\Khala.EventSourcing.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Khala.EventSourcing.Sql, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Khala.EventSourcing.Sql.0.10.1\lib\net45\Khala.EventSourcing.Sql.dll</HintPath>
     </Reference>
